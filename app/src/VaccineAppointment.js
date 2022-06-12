@@ -2,6 +2,7 @@ import { useNavigate } from "react-router-dom";
 import DayTimePicker from "@mooncake-dev/react-day-time-picker";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
+import './VaccineAppointment.css';
 
 const VaccineAppointment = () => {
   const navigate = useNavigate();
@@ -69,22 +70,47 @@ const VaccineAppointment = () => {
     setIsOpen(false);
   };
 
+  const timeSlotValidator = (slotTime) => {
+    const earlyTime = new Date(
+      slotTime.getFullYear(),
+      slotTime.getMonth(),
+      slotTime.getDate(),
+      8,
+      0,
+      0
+    );
+    const lateTime = new Date(
+      slotTime.getFullYear(),
+      slotTime.getMonth(),
+      slotTime.getDate(),
+      20,
+      0,
+      0
+    );
+    // aqui podriem consultar quins slots han estat agafats, pero per fer-ho hauria de tenir una
+    // base de dades dels slots
+    const isValid = slotTime.getTime() > earlyTime.getTime() && slotTime.getTime() < lateTime.getTime();
+    return isValid;
+  }
+
   return (
     <div className="container">
       <div className="row">
-        <h1>Vaccine Appointment</h1>
+        <h1 className="title">Vaccine Appointment</h1>
         <p>
-          You have recieved {vaccines.length} vaccines on :<br />
+          You have recieved {vaccines.length} vaccines
+          { vaccines.length > 0 && ` on :`}
+          <br />
           {vaccines.map((vaccine) => (
             <>
-              {vaccine}
+              {vaccine.toLocaleString().split('T')[0]}
               <br />
             </>
           ))}
         </p>
         <b>
           {slot
-            ? `Your appointment is set for ${slot.toLocaleString()}`
+            ? `Your appointment is set for ${slot}`
             : "You don't have any appointments. "}
         </b>
         {!slot && (
@@ -111,6 +137,7 @@ const VaccineAppointment = () => {
                 isLoading={false}
                 onConfirm={setVaccineSlot}
                 isDone={false}
+                timeSlotValidator={timeSlotValidator}
               />
               <button className="btn btn-danger" onClick={closeModal}>
                 Close

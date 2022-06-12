@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
 import {
+  useMatch,
   BrowserRouter as Router,
   Routes,
   Route,
@@ -16,18 +17,22 @@ const App = () => {
     localStorage.removeItem("token");
     document.location.href = "/login";
   };
+  //let login = window.location.href.split('/').at(-1) === "login"
+  const LogOutButton = () => {
+    const login = useMatch("/login");
+    if (login)
+      return
+    return <button className="log-out-bt" onClick={logOut} type="button">Log out</button>
+  }
   return (
     <Router>
       <div className="App">
         <nav className="navbar navbar-expand-lg navbar-light fixed-top">
           <div className="container">
-            <Link className="navbar-brand" to={"/sign-in"}>
+            <h1 className="navbar-brand">
               Vaccine Appointment site
-            </Link>
-            {/* Logout button */}
-            <button onClick={logOut} type="button">
-              Log out
-            </button>
+            </h1>
+            <LogOutButton/>
           </div>
         </nav>
         <div className="auth-wrapper">
