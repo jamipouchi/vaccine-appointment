@@ -54,13 +54,20 @@ const VaccineAppointment = () => {
         "Content-Type": "application/json",
         Authorization: "Bearer " + localStorage.getItem("token"),
       },
+      body: JSON.stringify({
+        scheduled_slot: slot,
+      }),
     });
     setSlot(null);
   };
 
-  function openModal() {
+  const openModal = () => {
     setIsOpen(true);
-  }
+  };
+
+  const closeModal = () => {
+    setIsOpen(false);
+  };
 
   return (
     <div className="container">
@@ -75,11 +82,11 @@ const VaccineAppointment = () => {
             </>
           ))}
         </p>
-        <div>
+        <b>
           {slot
             ? `Your appointment is set for ${slot.toLocaleString()}`
             : "You don't have any appointments. "}
-        </div>
+        </b>
         {!slot && (
           <>
             <button className="btn btn-primary" onClick={openModal}>
@@ -105,6 +112,9 @@ const VaccineAppointment = () => {
                 onConfirm={setVaccineSlot}
                 isDone={false}
               />
+              <button className="btn btn-danger" onClick={closeModal}>
+                Close
+              </button>
             </Modal>
           </>
         )}

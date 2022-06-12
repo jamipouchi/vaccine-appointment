@@ -9,8 +9,8 @@ app.delete("/vaccine-slot", authenticateToken, (req, res) => {
   Usuario.findByIdAndUpdate(
     req.user.usuario._id,
     {
+      $push: { vaccines: req.body.scheduled_slot },
       $unset: { scheduled_slot: 1 },
-      $push: { vaccines: req.user.usuario.scheduled_slot },
     },
     (err, usuarioDB) => {
       if (err) {
@@ -31,7 +31,7 @@ app.delete("/vaccine-slot", authenticateToken, (req, res) => {
 app.post("/vaccine-slot", authenticateToken, (req, res) => {
   Usuario.findByIdAndUpdate(
     req.user.usuario._id,
-    { scheduled_slot: new Date() },
+    { scheduled_slot: req.body.scheduled_slot },
     { new: true },
     function (err, docs) {
       if (err) {
