@@ -27,7 +27,7 @@ const VaccineAppointment = () => {
       }
     };
     fetchData();
-  }, []);
+  }, [slot]);
 
   const setVaccineSlot = async (slot) => {
     await fetch("/vaccine-slot", {
@@ -59,7 +59,7 @@ const VaccineAppointment = () => {
       <div className="row">
         <h1>Vaccine Appointment</h1>
         <p>
-          You have recieved {vaccines.length} vaccines on
+          You have recieved {vaccines.length} vaccines on :<br />
           {vaccines.map((vaccine) => vaccine)}
         </p>
         <div>
