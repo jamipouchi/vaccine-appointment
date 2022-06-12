@@ -18,6 +18,14 @@ let userSchema = new Schema({
     type: String,
     required: [true, "Le contraseña es obligatoria"],
   },
+  scheduled_slot: {
+    type: Date,
+    required: false,
+  },
+  vaccines: {
+    type: [Date],
+    required: true,
+  },
 });
 
 // elimina la key password del objeto que retorna al momento de crear un usuario
