@@ -29,7 +29,7 @@ const Login = () => {
     const body = await response.json();
     if (body.token) {
       localStorage.setItem("token", body.token);
-      navigate("/vaccine-info");
+      navigate("/");
     } else {
       setError("Could not log in ");
     }

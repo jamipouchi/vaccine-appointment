@@ -1,14 +1,20 @@
 import React from "react";
 import "../node_modules/bootstrap/dist/css/bootstrap.min.css";
 import "./App.css";
-import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route,
+  Link,
+  useNavigate,
+} from "react-router-dom";
 import Login from "./Login";
 import VaccineAppointment from "./VaccineAppointment";
 
 const App = () => {
-  const token = localStorage.getItem("token");
   const logOut = () => {
     localStorage.removeItem("token");
+    document.location.href = "/login";
   };
   return (
     <Router>
@@ -26,16 +32,10 @@ const App = () => {
         </nav>
         <div className="auth-wrapper">
           <div className="auth-inner">
-            {!token && <Login />}
-            {token && (
-              <Routes>
-                <Route
-                  exact
-                  path="/vaccine-info"
-                  element={<VaccineAppointment />}
-                />
-              </Routes>
-            )}
+            <Routes>
+              <Route exact path="/" element={<VaccineAppointment />} />
+              <Route path="/login" element={<Login />} />
+            </Routes>
           </div>
         </div>
       </div>
