@@ -6,8 +6,6 @@ import {
   BrowserRouter as Router,
   Routes,
   Route,
-  Link,
-  useNavigate,
 } from "react-router-dom";
 import Login from "./Login";
 import VaccineAppointment from "./VaccineAppointment";
@@ -17,7 +15,6 @@ const App = () => {
     localStorage.removeItem("token");
     document.location.href = "/login";
   };
-  //let login = window.location.href.split('/').at(-1) === "login"
   const LogOutButton = () => {
     const login = useMatch("/login");
     if (login)

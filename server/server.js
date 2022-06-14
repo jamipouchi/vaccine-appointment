@@ -27,5 +27,5 @@ mongoose.connect(
 );
 
 app.listen(8000, () => {
-  console.log("Escuchando en puerto 3000");
+  console.log("Escuchando en puerto 8000");
 });
